@@ -1,7 +1,7 @@
 -f https://download.pytorch.org/whl/torch_stable.html
-torch==1.7.1+cu110
-torchtext==0.8.*
-gym==0.17.*
+torch==1.11.0+cu115
+torchtext==0.12.*
+gym==0.25.*
 transformers
 flatten_dict
 tensorboard
@@ -10,7 +10,7 @@ termcolor
 pygments
 tabulate
 nltk
-sklearn
+scikit-learn
 pandas
 sacremoses
 ujson
