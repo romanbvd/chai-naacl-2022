@@ -89,10 +89,10 @@ if __name__ == "__main__":
         per_device_eval_batch_size=args.batch_size,
         fp16=args.fp16,
         no_cuda=False,
-        num_train_epochs=20,
+        num_train_epochs=15,
         save_steps=1000,
         warmup_steps=100,
-        save_total_limit=5,
+        save_total_limit=3,
         dataloader_drop_last=True,
     )
     trainer = Trainer(
