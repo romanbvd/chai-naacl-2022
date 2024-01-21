@@ -55,7 +55,7 @@ class GPT2(torch.nn.Module):
             max_length=512,
             num_beams=kwargs["num_return_sequences"] + num_extra_beams,
             no_repeat_ngram_size=2,
-            cache=True,
+            use_cache=True,
             **kwargs,
         )
 
@@ -73,6 +73,7 @@ class GPT2(torch.nn.Module):
         dialog: List[Tuple[cg.Agent, str]],
         **kwargs,
     ):
+        
         encoded = self._encode_dialog(context, dialog)
         return self.model.generate(
             encoded,
@@ -80,7 +81,7 @@ class GPT2(torch.nn.Module):
             top_p=0.85,
             do_sample=True,
             max_length=1024,
-            cache=True,
+            use_cache=True,
             num_beams=5,
             **kwargs,
         )
@@ -96,12 +97,13 @@ class GPT2(torch.nn.Module):
     ) -> List[str]:
         if agents is None:
             agents = [cg.Agent(i % 2) for i in range(len(dialog))]
+        
         new_dialog = list(zip(agents, dialog))
         generation_fn = getattr(self, generation_fn)
         generated = generation_fn(
             context,
             new_dialog,
-            agents=agents,
+            # agents=agents,
             early_stopping=True,
             eos_token_id=self.tokenizer.encode("<sep>")[0],
             pad_token_id=220,  # newline token
