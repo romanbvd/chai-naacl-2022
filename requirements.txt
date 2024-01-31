@@ -15,5 +15,3 @@ pandas
 sacremoses
 ujson
 accelerate==0.20.3
-numpy==1.22.0
-tensorflow==2.10.0
