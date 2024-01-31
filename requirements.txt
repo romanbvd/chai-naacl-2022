@@ -1,8 +1,8 @@
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==1.11.0+cu115
 torchtext==0.12.*
-gym==0.16.*
-transformers
+gym==0.17.3
+transformers==4.21.0
 flatten_dict
 tensorboard
 cpprb
@@ -14,4 +14,6 @@ scikit-learn
 pandas
 sacremoses
 ujson
-accelerate
+accelerate==0.20.3
+numpy==1.22.0
+tensorflow==2.10.0
