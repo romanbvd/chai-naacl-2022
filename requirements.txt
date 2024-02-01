@@ -2,7 +2,7 @@
 torch==1.11.0+cu115
 torchtext==0.12.*
 gym==0.17.3
-transformers
+transformers=4.21.0
 flatten_dict
 tensorboard
 cpprb
@@ -14,4 +14,4 @@ scikit-learn
 pandas
 sacremoses
 ujson
-accelerate
+accelerate=0.20.3
