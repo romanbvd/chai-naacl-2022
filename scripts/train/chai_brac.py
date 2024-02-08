@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
+# python chai_brac.py --logdir ./logs/chai --filepath ../../data/train.json --embeddings ./embeddings_small.pkl --sentences ./sentences_small.pkl
+
 from flatten_dict.flatten_dict import flatten, unflatten
 from neural_chat.algo.brac import BRAC
 from neural_chat.actor import DictActor
 from neural_chat.critic import DoubleQCritic
 from neural_chat.logger import logger, Hyperparams
 import neural_chat.craigslist as cg
-
 import argparse
 from torch.utils import data
 from tqdm import tqdm
@@ -36,7 +37,7 @@ if __name__ == "__main__":
     parser.add_argument("--num-workers", type=int, default=4)
     args = parser.parse_args()
     args.hidden_dim = [int(d) for d in args.hidden_dim.split(",")]
-
+    
     # data
     cdata = cg.CraigslistData(
         path=args.filepath,
@@ -87,4 +88,6 @@ if __name__ == "__main__":
         for j, sample in enumerate(tqdm(data_loader)):
             sample = to(sample, args.device)
             algo.update(sample, j)
-        logger.epoch(i)
+
+        if i % 10 == 0:
+            logger.epoch(i)
