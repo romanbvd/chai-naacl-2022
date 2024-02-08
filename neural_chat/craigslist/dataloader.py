@@ -27,7 +27,7 @@ class DoneType(Enum):
 
 # spaces
 price_box = sp.Box(0, 3, (1,))
-embedding = sp.Box(-1.0, 1.0, (1024,))  # embedding size
+embedding = sp.Box(-1.0, 1.0, (768,))  # embedding size 768 1024
 
 
 REWARD_TYPE_UTILITY = "utility"
