@@ -80,7 +80,7 @@ class BRAC(SAC):
             alpha_loss.backward()
             self.log_alpha_optimizer.step()
 
-    def update_critic(self, obs, act, rew, next_obs, done):
+    def update_critic(self, obs, act, rew, next_obs, done, cur_choices, cur_choices_type, next_choices, next_choices_type):
         partner_price = obs["buyer_price"].detach()
         prev_seller_price = obs["seller_price"].detach()
         if self.penalty_type == "vp":
