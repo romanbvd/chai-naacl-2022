@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import os
 from flatten_dict.flatten_dict import flatten, unflatten
 from neural_chat.algo import EMAQ_NOA
 from neural_chat.actor import CraigslistDummyActor
@@ -10,7 +10,7 @@ import neural_chat.craigslist as cg
 import argparse
 from torch.utils import data
 from tqdm import tqdm
-
+print(os.getcwd())
 # move to device
 def to(batch: dict, device):
     return unflatten({k: v.to(device) for k, v in flatten(batch).items()})
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     parser.add_argument("--num-workers", type=int, default=4)
     args = parser.parse_args()
     args.hidden_dim = [int(d) for d in args.hidden_dim.split(",")]
-
+    
     # data
     cdata = cg.CraigslistData(
         path=args.filepath,
@@ -76,4 +76,5 @@ if __name__ == "__main__":
         for j, sample in enumerate(tqdm(data_loader)):
             sample = to(sample, args.device)
             algo.update(sample, j)
-        logger.epoch(i)
+        if i == 20 or i ==30:
+            logger.epoch(i)
