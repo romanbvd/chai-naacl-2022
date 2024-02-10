@@ -21,8 +21,9 @@ if __name__ == "__main__":
     parser.add_argument("--logdir", type=str, required=True)
     parser.add_argument("--filepath", type=str, required=True)
     parser.add_argument("--embeddings", type=str, required=True)
+    parser.add_argument("--sentences", type=str, required=True)
     parser.add_argument("--path-length", type=int, default=100)
-    parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--device", type=str, default="cpu")
     parser.add_argument("--num-epochs", type=int, default=5000)
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--minq-version", type=int, default=2)
@@ -33,7 +34,10 @@ if __name__ == "__main__":
     args.hidden_dim = [int(d) for d in args.hidden_dim.split(",")]
 
     # data
-    cdata = cg.CraigslistData(args.filepath, args.embeddings)
+    cdata = cg.CraigslistData(
+        args.filepath, 
+        args.embeddings,
+        sentences_path=args.sentences)
     data_loader = data.dataloader.DataLoader(
         dataset=cdata,
         batch_size=args.batch_size,
