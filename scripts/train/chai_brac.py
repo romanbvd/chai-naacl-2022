@@ -82,12 +82,11 @@ if __name__ == "__main__":
         args.logdir,
     )
     logger.log_hyperparameters()
-
     # train
     for i in tqdm(list(range(args.num_epochs))):
         for j, sample in enumerate(tqdm(data_loader)):
             sample = to(sample, args.device)
             algo.update(sample, j)
 
-        if i % 10 == 0:
-            logger.epoch(i)
+        # if i % 10 == 0:
+        logger.epoch(i)
