@@ -12,7 +12,16 @@ def flatten_space(space: Space) -> Tuple:
     if isinstance(space, Tuple):
         return Tuple(sum([flatten_space(s).spaces for s in space.spaces], []))
     elif isinstance(space, Dict):
-        return Tuple(sum([flatten_space(s).spaces for s in space.spaces.values()], []))
+        tuple_of_tuples = [flatten_space(s).spaces for s in space.spaces.values()]
+
+        concatenated_tuple = ()
+        for tup in tuple_of_tuples:
+            if isinstance(tup, tuple):  # Check if the element is a tuple
+                concatenated_tuple += tup
+            else:
+                concatenated_tuple += tuple(tup)
+        
+        return Tuple(concatenated_tuple)
     else:
         return Tuple([space])
 
@@ -55,10 +64,12 @@ class Unflatten(Transform):
             list_flattened = torch.split(
                 x, list(map(flatdim, space.spaces.values())), dim=-1
             )
+            
             list_unflattened = [
                 (key, Unflatten.unflatten(s, flattened))
                 for flattened, (key, s) in zip(list_flattened, space.spaces.items())
             ]
+            
             return OrderedDict(list_unflattened)
         else:
             return x
