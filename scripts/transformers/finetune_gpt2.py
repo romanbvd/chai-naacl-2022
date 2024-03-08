@@ -61,7 +61,7 @@ def make_craigslist_dataset(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--gpt2-type", default="gpt2")
+    parser.add_argument("--gpt2-type", default="gpt2-medium")
     parser.add_argument("--train-fp", default="../../data/train.json")
     parser.add_argument("--val-fp", default="../../data/test.json")
     parser.add_argument("--output-dir", default="./train_output")
