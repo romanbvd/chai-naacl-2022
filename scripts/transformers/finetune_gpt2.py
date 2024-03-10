@@ -92,7 +92,7 @@ if __name__ == "__main__":
         num_train_epochs=7,
         save_steps=1000,
         warmup_steps=100,
-        save_total_limit=2,
+        save_total_limit=1,
         dataloader_drop_last=True,
     )
     trainer = Trainer(
