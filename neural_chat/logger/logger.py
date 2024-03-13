@@ -28,7 +28,7 @@ class Logger:
         self._lexer = pygments.lexers.JsonLexer()
         self._formatter = pygments.formatters.TerminalFormatter()
 
-    def initialize(self, modules: dict, logdir=None, snapshot_gap=50):
+    def initialize(self, modules: dict, logdir=None, snapshot_gap=1):
         """
         Initialize the current logger.
 

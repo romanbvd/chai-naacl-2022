@@ -5,6 +5,7 @@ from neural_chat.actor import CraigslistDummyActor
 from neural_chat.critic import DoubleQCritic
 from neural_chat.logger import logger, Hyperparams
 import neural_chat.craigslist as cg
+import torch
 
 import argparse
 from torch.utils import data
@@ -29,6 +30,7 @@ if __name__ == "__main__":
     parser.add_argument("--cql-weight", type=float, default=0.1)
     parser.add_argument("--price-decrease-penalty", action="store_true")
     parser.add_argument("--num-workers", type=int, default=4)
+    parser.add_argument("--checkpoint-file", type=str, default=None)
     args = parser.parse_args()
     args.hidden_dim = [int(d) for d in args.hidden_dim.split(",")]
     
@@ -48,6 +50,14 @@ if __name__ == "__main__":
 
     # models
     crt = DoubleQCritic(cdata.obs_spec, cdata.act_spec, hidden_dim=args.hidden_dim)
+
+    if(args.checkpoint_file):
+        with open(args.checkpoint_file, "rb") as f:
+            print("Critic loaded from snapshot")
+            snapshot = torch.load(f)
+            crt.load_state_dict(**snapshot["algo"]["critic"])
+            crt.eval()
+
     act = CraigslistDummyActor(q_fn=crt)
 
     algo = EMAQ_NOA(
