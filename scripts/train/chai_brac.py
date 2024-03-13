@@ -84,9 +84,9 @@ if __name__ == "__main__":
     logger.log_hyperparameters()
     # train
     for i in tqdm(list(range(args.num_epochs))):
-        for j, sample in enumerate(tqdm(data_loader)):
+        for j, sample in enumerate(data_loader):
             sample = to(sample, args.device)
             algo.update(sample, j)
 
-        if i % 20 == 0:
+        if i % 30 == 0:
             logger.epoch(i)
