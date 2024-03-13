@@ -84,5 +84,5 @@ if __name__ == "__main__":
         for j, sample in enumerate(data_loader):
             sample = to(sample, args.device)
             algo.update(sample, j)
-        if i % 30 == 0:
+        if i % 25 == 0:
             logger.epoch(i)
