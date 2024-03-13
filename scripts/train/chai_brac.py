@@ -88,5 +88,5 @@ if __name__ == "__main__":
             sample = to(sample, args.device)
             algo.update(sample, j)
 
-        # if i % 10 == 0:
-        logger.epoch(i)
+        if i % 20 == 0:
+            logger.epoch(i)

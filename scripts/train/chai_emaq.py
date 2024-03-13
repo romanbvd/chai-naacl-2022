@@ -74,5 +74,5 @@ if __name__ == "__main__":
         for j, sample in enumerate(tqdm(data_loader)):
             sample = to(sample, args.device)
             algo.update(sample, j)
-        if i % 10 == 0:
+        if i % 20 == 0:
             logger.epoch(i)
