@@ -82,7 +82,8 @@ class GPT2(torch.nn.Module):
             do_sample=True,
             max_length=1024,
             use_cache=True,
-            num_beams=4,
+            temperature=1.3,
+            num_beams=3,
             **kwargs,
         )
 
