@@ -1,4 +1,5 @@
 from typing import Dict, Any, cast, Optional, Tuple
+import numpy as np
 from flatten_dict import flatten, unflatten
 from .parse import (
     Craigslist,
