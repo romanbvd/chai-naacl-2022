@@ -1,5 +1,5 @@
 -f https://download.pytorch.org/whl/torch_stable.html
-torch==2.2.0+cu121
+torch==2.2.1+cu121
 torchtext==0.6.0
 gym==0.25.2
 transformers==4.38.2
