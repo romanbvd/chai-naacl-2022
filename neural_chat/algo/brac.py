@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 import torch.distributions as pyd
 from .sac import SAC
-
+import json
 
 @simpleloggable
 class BRAC(SAC):
@@ -32,6 +32,7 @@ class BRAC(SAC):
         self.penalty_type = penalty_type
         self._price_loss_weight = _price_loss_weight
         self._price_clamp_min = _price_clamp_min
+        self.critic_loss = []
 
     def update_actor_and_alpha(self, obs, cur_choices, **_):
         obs = {**obs, "actions": cur_choices}
@@ -112,6 +113,10 @@ class BRAC(SAC):
         self.critic_optimizer.step()
 
         # logging
+        self.critic_loss.append(critic_loss.item())
+        with open("./critic_loss.json", "w") as file:
+            json.dump(self.critic_loss, file, ensure_ascii=False)
+
         self.log("critic/loss", critic_loss)
         self.log("critic/target_q", tar_Q)
         self.log("critic/q1", cur_Q1)
